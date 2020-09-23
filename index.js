@@ -38,9 +38,7 @@ function billFor(month, activeSubscription, users) {
 
   if (activeSubscription === '' || users.length === 0) return 0
 
-  daysInMonth = Number(
-    new Date(month.split('-')[0], month.split('-')[1], 31).getDate(),
-  )
+  daysInMonth = Number(new Date(month.split('-')[0], month.split('-')[1], 31).getDate())
   dailyRate = Number(activeSubscription.subscriptionRate / daysInMonth)
 
   cl(`Subscription Fee :: ${activeSubscription.subscriptionRate}`)
@@ -49,9 +47,7 @@ function billFor(month, activeSubscription, users) {
 
   /* start iteration */
   users.forEach((user) => {
-    const [activeYear, activeMonth, activeDate] = user['startActiveOn'].split(
-      '-',
-    )
+    const [activeYear, activeMonth, activeDate] = user['startActiveOn'].split('-')
     /* active in the month bill */
     if (`${activeYear}-${activeMonth}` === month) {
       totalActiveUser += 1
@@ -69,9 +65,7 @@ function billFor(month, activeSubscription, users) {
       }
 
       //cl(`Total Active Days :: ${totalActiveDays}`)
-      const billActiveDays = parseFloat(
-        (dailyRate * totalActiveDays).toFixed(2),
-      )
+      const billActiveDays = parseFloat((dailyRate * totalActiveDays).toFixed(2))
       const billActiveDaysLocale = Intl.NumberFormat('EN-US', {
         style: 'currency',
         currency: 'USD',
